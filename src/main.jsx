@@ -1,0 +1,56 @@
+import React,{useEffect,useState} from 'react'
+import{createRoot}from'react-dom/client'
+import'./styles.css'
+
+const projects=[
+{name:'LiquorFlow',label:'FLAGSHIP PROJECT',description:'Full-stack liquor-store order and delivery management system built around structured workflows, role-based access, API-driven architecture and delivery coordination.',story:[['Challenge','Create a structured digital workflow for liquor-store order processing and delivery coordination.'],['Action','Built a FastAPI REST backend with JWT authentication and RBAC, PostgreSQL with SQLAlchemy, and a React + Vite frontend. Designed architecture and user flows in Figma and prepared Render deployment.'],['Result','End-to-end project demonstrating requirements analysis, system design, database design, API development, security, testing, deployment, documentation and presentation.']],stack:['Python','FastAPI','React','Vite','PostgreSQL','SQLAlchemy','JWT','RBAC','Figma','Render'],github:'https://github.com/johnloreng/LiquorFlow'},
+{name:'Meridian Pivot',label:'SOFTWARE ENGINEERING PROJECT',description:'Event check-in kiosk service demonstrating asynchronous processing, webhook callbacks, state transitions and idempotency.',story:[['Challenge','Replace a synchronous badge-printing dependency with a more resilient workflow after a vendor API change.'],['Action','Implemented asynchronous processing: check-in records PENDING and dispatches the print task; POST /webhook completes the workflow by setting CHECKED_IN. Added idempotency protection against duplicate scans.'],['Result','Demonstrates API design, asynchronous processing, webhooks, state management and duplicate-operation protection.']],stack:['Python','FastAPI','React','JavaScript','REST API','Async Processing','Webhooks','Idempotency'],github:'https://github.com/johnloreng/meridian-pivot'}]
+
+const skills=[
+['Programming','Python','JavaScript','TypeScript','HTML','CSS'],
+['Frontend','React','Vite','Responsive Web Design'],
+['Backend & APIs','FastAPI','REST APIs','JWT Authentication','RBAC'],
+['Database','PostgreSQL','SQLAlchemy','Relational Database Design'],
+['Tools & Delivery','Git','GitHub','VS Code','npm','Figma','Render'],
+['AI & Emerging Tech','Generative AI','Prompt Engineering','AI Automation','APIs','Cloud','Automation']]
+
+const experience=[
+['Information Communication Technology Officer','County Government of Turkana','Aug 2025 – Present','Lodwar, Turkana County, Kenya',['Provide technical support to staff and users, diagnosing and resolving hardware, software, operating-system, and connectivity-related issues.','Install, configure, maintain, and troubleshoot computer hardware, operating systems, applications, and peripheral devices.','Support implementation and maintenance of ICT systems and digital tools used to improve organizational operations.','Troubleshoot network and internet connectivity challenges and escalate infrastructure issues when necessary.','Assist users with software installation, configuration, system updates, and general technology support.','Maintain ICT equipment and support reliable availability of technology resources.','Identify recurring technical challenges and recommend practical solutions to improve efficiency.','Collaborate with colleagues and service providers to resolve ICT-related technical issues.','Continuously develop skills in software engineering, artificial intelligence, automation, and emerging technologies.']],
+['Facilitator (KYEOP)','Delight Technology College','May 2019 – Oct 2019','',['Facilitated practical training in computer networking and operating-system installation.','Guided learners through hands-on technical exercises and troubleshooting.']],
+['Data Clerk','Solar Magics Firm & General Suppliers Limited','Jan 2017 – Dec 2018','',['Prepared reports and supported accurate data entry and document management.','Handled scanning, photocopying, and routine information-processing tasks.']],
+['Part-Time Facilitator','Learning Lions Institute, Lodwar','May 2016 – Dec 2016','',['Taught web development using HTML, PHP, Bootstrap, CSS and WordPress.','Introduced learners to mobile app development with MIT App Inventor and provided computer repair and maintenance support.']],
+['Web & Graphic Designer','Startup Lion Asset Kenya','Dec 2015 – Oct 2016','',['Developed websites for local and international clients using web technologies and content-management tools.','Created logos and provided computer repair and maintenance support; led the Roar Coders team.']]]
+
+function App(){
+ const[dark,setDark]=useState(true),[menu,setMenu]=useState(false)
+ useEffect(()=>{document.documentElement.dataset.theme=dark?'dark':'light'},[dark])
+ return <div className="site">
+  <header className="nav"><a className="brand" href="#top">JL<span>.</span></a><button className="menu" onClick={()=>setMenu(!menu)}>☰</button>
+   <nav className={menu?'links open':'links'}>{['about','experience','projects','skills','certifications','contact'].map(x=><a key={x} href={'#'+x} onClick={()=>setMenu(false)}>{x}</a>)}<button className="theme" onClick={()=>setDark(!dark)}>{dark?'☀':'☾'}</button></nav>
+  </header>
+  <main id="top">
+   <section className="hero section"><div><p className="eyebrow">SOFTWARE ENGINEER • ICT PROFESSIONAL • AI & EMERGING TECHNOLOGIES</p><h1>Building practical software for real operational problems.</h1><p className="hero-text">I am John Loreng, an ICT professional transitioning into software engineering. I build backend APIs, web applications, databases and workflow-driven systems with a focus on reliability, maintainability and practical outcomes.</p><div className="actions"><a className="button primary" href="#projects">View projects</a><a className="button" href="https://github.com/johnloreng" target="_blank" rel="noreferrer">GitHub ↗</a><a className="button" href="https://www.linkedin.com/in/johnloreng" target="_blank" rel="noreferrer">LinkedIn ↗</a></div></div><div className="terminal"><div className="terminalbar">● ● ● <span>engineering.log</span></div><pre>{`$ whoami
+john-loreng
+
+$ focus
+software engineering
+backend systems
+react applications
+apis & databases
+ai-enabled workflows
+
+$ approach
+problem → architecture
+→ implementation → testing
+→ deployment → iteration`}</pre></div></section>
+   <section id="about" className="section"><div className="heading"><span>01</span><h2>About</h2></div><div className="two"><div><p className="lead">My background combines ICT operations, technical support, web development, training and software engineering projects.</p><p>I enjoy taking an operational problem, breaking it into requirements, designing the workflow and data model, then building and testing a practical solution. My current engineering work is centered on Python, FastAPI, React, REST APIs, PostgreSQL, SQLAlchemy, authentication, authorization and automation.</p></div><div className="principles">{[['01','Problem first','Understand the workflow before choosing technology.'],['02','Design for reliability','Clear contracts, validation, access control and robust state handling.'],['03','Deliver iteratively','Use Git, testing, documentation, deployment and feedback.']].map(x=><div key={x[0]}><b>{x[0]}</b><strong>{x[1]}</strong><small>{x[2]}</small></div>)}</div></div></section>
+   <section id="experience" className="section"><div className="heading"><span>02</span><h2>Experience</h2></div><div className="timeline">{experience.map(j=><article className="job" key={j[0]+j[1]}><i></i><div className="jobhead"><div><h3>{j[0]}</h3><p>{j[1]}{j[3]&&' · '+j[3]}</p></div><time>{j[2]}</time></div><ul>{j[4].map(b=><li key={b}>{b}</li>)}</ul></article>)}</div></section>
+   <section id="projects" className="section"><div className="heading"><span>03</span><h2>Featured Projects</h2></div><div className="projects">{projects.map((p,i)=><article className="card project" key={p.name}><div className="projecttop"><b>0{i+1}</b><span>{p.label}</span></div><h3>{p.name}</h3><p>{p.description}</p><div className="story">{p.story.map(x=><div key={x[0]}><b>{x[0]}</b><p>{x[1]}</p></div>)}</div><div className="tags">{p.stack.map(x=><span key={x}>{x}</span>)}</div><a className="repo" href={p.github} target="_blank" rel="noreferrer">View repository ↗</a></article>)}</div></section>
+   <section id="skills" className="section"><div className="heading"><span>04</span><h2>Technical Skills</h2></div><div className="skillgrid">{skills.map(x=><article className="card skill" key={x[0]}><h3>{x[0]}</h3><div className="tags">{x.slice(1).map(s=><span key={s}>{s}</span>)}</div></article>)}</div></section>
+   <section id="certifications" className="section"><div className="heading"><span>05</span><h2>Certifications & Education</h2></div><div className="certgrid"><article className="card"><label>CERTIFICATE OF COMPLETION</label><h3>Cybersecurity and Emerging Technologies Awareness Training</h3><p>ICT Authority, Kenya in collaboration with Cyber Shujaa</p><small>12 February 2026 · Certificate ID: ICTA-1770884065-5884-39016</small></article><article className="card"><label>CERTIFICATE OF COMPLETION</label><h3>AI Safari</h3><p>4-week program covering Agentic Frameworks, AI Automation, Prompt Engineering, and AI Ethics & Governance.</p></article><article className="card"><label>EDUCATION</label><h3>Tunapanda Institution</h3><p>IT Certificate · June 2015 – September 2015</p></article><article className="card"><label>ADDITIONAL TRAINING</label><p>WASP · Youth Empowerment Programme · Education Technology Meetup · Startups Weekend · Installation and Configuration of IEBC Laptop.</p></article></div></section>
+   <section className="section"><div className="heading"><span>06</span><h2>Engineering Focus</h2></div><div className="focus"><h3>Software that makes complex workflows easier to operate.</h3><p>I am interested in systems that connect people, data, APIs and business processes: workflow automation, backend services, operational dashboards, reliable integrations and AI-enabled tools that solve specific problems.</p><div className="tags">{['Business workflow automation','Backend systems','API integrations','Data-driven applications','Cloud deployment','AI-enabled applications'].map(x=><span key={x}>{x}</span>)}</div></div></section>
+   <section id="contact" className="section contact"><div className="heading"><span>07</span><h2>Let’s Connect</h2></div><h2>Have a practical problem worth building a solution for?</h2><p>I’m open to software engineering opportunities, technical collaboration and projects where I can contribute to useful, reliable software.</p><div className="actions"><a className="button primary" href="mailto:johnloreng@gmail.com">Email me</a><a className="button" href="https://www.linkedin.com/in/johnloreng" target="_blank" rel="noreferrer">Connect on LinkedIn ↗</a></div></section>
+  </main><footer><span>© {new Date().getFullYear()} John Loreng Ekidor</span><span>Built with React + Vite</span></footer>
+ </div>
+}
+createRoot(document.getElementById('root')).render(<App/>)
